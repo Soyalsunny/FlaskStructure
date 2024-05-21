@@ -1,23 +1,16 @@
 import os
 from pathlib import Path
+from flask_templates import templates  # Import the templates
 
 class FlaskAppCreator:
     def __init__(self, base_path):
         self.base_path = Path(base_path)
-        self.templates = {
-            "__init__.py": "# Init file for {module_name} module",
-            "db.py": "# Contains database models",
-            "abc.py": "# Route definitions",
-            "abcd.py": "# Marshmallow schemas for serialization",
-            "abcde.py": "# Utility functions",
-            "config.py": "# Contains configuration settings",
-            "main.py": "# The main entry point for starting the Flask app"
-        }
+        self.templates = templates
 
     def create_structure(self):
         structure = {
             "app": {
-                "__init__.py": "",
+                "__init__.py": "app/__init__.py",
                 "models": {
                     "__init__.py": "",
                     "db.py": ""
@@ -47,9 +40,10 @@ class FlaskAppCreator:
                 os.makedirs(path, exist_ok=True)
                 self._create_files(path, content)
             else:
-                template = self.templates.get(name, "# Default content")
+                template_key = content if content else name
+                template = self.templates.get(template_key, "# Default content\n")
                 with open(path, 'w') as file:
-                    file_content = template.format(module_name=os.path.basename(os.path.dirname(path)))
+                    file_content = template.format(module_name=os.path.basename(os.path.dirname(path))) if template else ""
                     file.write(file_content)
 
     def run(self):
