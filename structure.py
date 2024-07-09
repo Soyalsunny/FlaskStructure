@@ -13,22 +13,26 @@ class FlaskAppCreator:
                 "__init__.py": "app/__init__.py",
                 "models": {
                     "__init__.py": "",
-                    "db.py": ""
+                    "db.py": "models/db.py"
                 },
                 "routes": {
                     "__init__.py": "",
-                    "abc.py": ""
+                    "abc.py": "routes/abc.py"
                 },
                 "schemas": {
                     "__init__.py": "",
-                    "abcd.py": ""
+                    "abcd.py": "schemas/abcd.py"
                 },
                 "utils": {
                     "__init__.py": "",
-                    "abcde.py": ""
+                    "abcde.py": "utils/abcde.py"
                 },
-                "config.py": "",
-                "main.py": ""
+                "tests": {
+                    "__init__.py": "",
+                    "test_app.py": "tests/test_app.py"
+                },
+                "config.py": "config.py",
+                "main.py": "main.py"
             }
         }
         self._create_files(self.base_path, structure)
@@ -42,9 +46,12 @@ class FlaskAppCreator:
             else:
                 template_key = content if content else name
                 template = self.templates.get(template_key, "# Default content\n")
-                with open(path, 'w') as file:
-                    file_content = template.format(module_name=os.path.basename(os.path.dirname(path))) if template else ""
-                    file.write(file_content)
+                try:
+                    with open(path, 'w') as file:
+                        file_content = template.format(module_name=os.path.basename(os.path.dirname(path))) if template else ""
+                        file.write(file_content)
+                except OSError as e:
+                    print(f"Error creating file {path}: {e}")
 
     def run(self):
         if not self.base_path.exists() or not self.base_path.is_dir():
