@@ -5,6 +5,7 @@ This repository contains a basic Flask application structured for scalability an
 ## Project Structure
 
 Below is the project directory structure along with a brief description of each component:
+```
 /flask_app
 │
 ├── app/
@@ -24,3 +25,4 @@ Below is the project directory structure along with a brief description of each 
 │
 ├── config.py # Contains configuration settings
 └── main.py # The main entry point for starting the Flask app
+```
