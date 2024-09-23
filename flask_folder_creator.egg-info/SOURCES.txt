@@ -1,0 +1,9 @@
+MANIFEST.in
+README.md
+setup.py
+flask_folder_creator.egg-info/PKG-INFO
+flask_folder_creator.egg-info/SOURCES.txt
+flask_folder_creator.egg-info/dependency_links.txt
+flask_folder_creator.egg-info/entry_points.txt
+flask_folder_creator.egg-info/requires.txt
+flask_folder_creator.egg-info/top_level.txt

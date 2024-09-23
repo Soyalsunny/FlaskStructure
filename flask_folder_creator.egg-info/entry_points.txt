@@ -1,0 +1,3 @@
+[console_scripts]
+create_flask_structure = flask_folder_creator.creator:create_structure
+
