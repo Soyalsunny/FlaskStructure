@@ -13,7 +13,7 @@ setup(
         ],
     },
     author="Soyal",
-    author_email="ysoyal@qburst.com",
+    author_email="soyal@qburst.com",
     description="A package to create Flask folder structures",
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",

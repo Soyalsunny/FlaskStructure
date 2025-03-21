@@ -3,14 +3,16 @@ from pathlib import Path
 from flask_templates import templates  # Import the templates
 
 class FlaskAppCreator:
-    def __init__(self, base_path):
-        self.base_path = Path(base_path)
+    def __init__(self, base_path, app_name):
+        self.base_path = Path(base_path) / app_name
+        self.app_folder = app_name  # use app name inside structure too
         self.templates = templates
+        self.app_name = app_name
 
     def create_structure(self):
         structure = {
-            "app": {
-                "__init__.py": "app/__init__.py",
+            self.app_folder: {
+                "__init__.py": f"{self.app_folder}/__init__.py",
                 "models": {
                     "__init__.py": "",
                     "db.py": "models/db.py"
@@ -54,13 +56,15 @@ class FlaskAppCreator:
                     print(f"Error creating file {path}: {e}")
 
     def run(self):
-        if not self.base_path.exists() or not self.base_path.is_dir():
-            print("Error: The specified path does not exist or is not a directory.")
-            return
-        self.create_structure()
-        print(f"Flask app directory structure created successfully at {self.base_path}.")
+        if self.base_path.exists():
+            print(f"⚠️  Directory '{self.base_path}' already exists.")
+        else:
+            self.create_structure()
+            print(f"✅ Flask app '{self.app_name}' created successfully at {self.base_path}.")
 
 if __name__ == "__main__":
-    user_input = input("Enter the directory path where you want to create the Flask app structure: ")
-    creator = FlaskAppCreator(user_input)
+    user_input_path = input("📁 Enter the directory path where you want to create the Flask app: ").strip()
+    app_name = input("📝 Enter the Flask app name: ").strip()
+    
+    creator = FlaskAppCreator(user_input_path, app_name)
     creator.run()
